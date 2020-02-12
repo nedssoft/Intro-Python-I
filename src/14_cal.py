@@ -30,3 +30,37 @@ it should use today’s date to get the month and year.
 import sys
 import calendar
 from datetime import datetime
+
+cal = calendar.Calendar(firstweekday=6)
+td = datetime.today()
+
+def print_calendar(cal):
+  for c in cal:
+    print(c)
+
+def print_usage_statement():
+   print('Ensure the input format is correct\nThe correct format is month year, or month only, example 2 2020 or 2 ')
+
+
+def get_calendar():
+  # get the commandline args
+  inputs = sys.argv[1:]
+  count = len(inputs)
+  if count and count > 1:
+    month, year = inputs[0], inputs[1]
+    if (int(month) <= 12 and year):
+      return print(cal.monthdayscalendar(int(year), int(month))) 
+    else:
+      return print_usage_statement()
+  elif (count ==1):
+    month = inputs[0]
+    if (int(month) <= 12):
+      return print(cal.monthdayscalendar(td.year, int(month)))
+    else:
+      return print_usage_statement()
+  else:
+    return cal.monthdayscalendar(td.year, td.month)
+  
+get_calendar()
+
+
